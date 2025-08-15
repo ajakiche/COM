@@ -15,6 +15,21 @@ _unauth_attempts = defaultdict(lambda: [0, 0.0])
 _MAX_ATTEMPTS = 3
 _WINDOW_SECONDS = 60
 
+import os, threading
+from aiohttp import web
+
+async def _health(_):
+    return web.Response(text="OK")
+
+def _run_health_server():
+    app = web.Application()
+    app.router.add_get("/", _health)
+    port = int(os.getenv("PORT", 8000))
+    web.run_app(app, port=port)
+
+# start background HTTP server
+threading.Thread(target=_run_health_server, daemon=True).start()
+
 # ------------------ storage ------------------
 def db():
     con = sqlite3.connect(DB_PATH)
