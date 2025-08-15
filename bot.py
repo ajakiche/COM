@@ -343,7 +343,7 @@ async def warn(ctx, member: discord.Member, *, reason: str = None):
     add_warning(member.id, reason)
     total_warnings = len(get_all_warnings(member.id))
 
-    GENERAL_CHANNEL_ID = 578652369819009026  # Replace with your general channel ID
+    GENERAL_CHANNEL_ID = 1115086270780145728  # Replace with your general channel ID
     general_channel = bot.get_channel(GENERAL_CHANNEL_ID)
 
     if reason != "Warning administered":
